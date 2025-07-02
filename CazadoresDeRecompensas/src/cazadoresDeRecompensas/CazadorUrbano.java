@@ -20,9 +20,9 @@ public class CazadorUrbano extends Cazador {
 				profugosNoEliminados.add(zona.getProfugos().get(i));
 				this.intimidar(zona.getProfugos().get(i));
 			}
-
 		}
-		if (this.CantidadDeProfugosAtrapados() > 1) {
+		zona.setProfugos(profugosNoEliminados);
+		if (this.CantidadDeProfugosAtrapados() >= 1) {
 			this.aumentaExperiencia(profugosNoEliminados);
 		}
 		return capturado;
@@ -36,6 +36,12 @@ public class CazadorUrbano extends Cazador {
 			profugo.setEsNervioso(false);
 		}
 
+	}
+	
+	
+	@Override
+	public String toString() {
+		return "Cazador Urbano [experiencia=" + experiencia + ", profugosAtrapados=" + this.CantidadDeProfugosAtrapados() + "]";
 	}
 
 }

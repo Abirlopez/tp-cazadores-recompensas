@@ -12,18 +12,6 @@ import cazadoresDeRecompensas.Zona;
 import cazadoresDeRecompensas.CazadorSigiloso;
 
 public class CazadoresDeRecompensasTest {
-
-//	@Test
-//	public void queSePuedaAgregarUnCazadorYUnProfugo() {
-//		Zona zona1 = new Zona("Dodge City");
-//		Agencia agencia = new Agencia();
-//		CazadorUrbano cazadorUrbano = new CazadorUrbano(1, 0);
-//		Profugo pacoElFlaco = new Profugo(50, 50, true);
-//		
-//		zona1.agregarProfugo(pacoElFlaco);
-//		zona1.getProfugos().get(0);
-//		assertEquals(true, pacoElFlaco.getEsNervioso());
-//	}
 	
 	@Test
 	public void queSePuedaAgregarUnProfugoALaZona() {
@@ -141,7 +129,7 @@ public class CazadoresDeRecompensasTest {
 	@Test
 	public void queElCazadorUrbanoNoPuedaCapturarAUnProfugoPeroLoIntimideYSeVuelvaNoNervioso() {
 		Zona zona = new Zona("Dodge City");
-		Profugo pacoElFlaco = new Profugo(50, 70,false);
+		Profugo pacoElFlaco = new Profugo(50, 70,true);
 		CazadorUrbano cazador = new CazadorUrbano(80);
 		zona.agregarProfugo(pacoElFlaco);
 		cazador.capturarProfugos(zona);
@@ -184,8 +172,128 @@ public class CazadoresDeRecompensasTest {
 		zona.agregarProfugo(profugo5);
 		cazador.capturarProfugos(zona);
 		
+		//experiencia += (Mínimo valor de habilidad entre todos los intimidados) + (2 * prófugos capturados)
+		// 61 + 30 + (2*3)
 		assertEquals(Integer.valueOf(97), cazador.getExperiencia());
 	}
+	
+	@Test
+	public void queHayaVariosProfugosEnLaZonaYElCazadorUrbanoAtrape1YHaya2Intimidados() {
+		//no debe ser nervioso
+		Zona zona = new Zona("Dodge City");
+		Profugo pacoElFlaco = new Profugo(50, 50,false);
+		Profugo profugo5 = new Profugo(50, 40,true);
+		Profugo profugo4 = new Profugo(50, 30,true);
+		CazadorUrbano cazador = new CazadorUrbano(61);
+		zona.agregarProfugo(pacoElFlaco);
+		zona.agregarProfugo(profugo4);
+		zona.agregarProfugo(profugo5);
+		cazador.capturarProfugos(zona);
+		
+		//experiencia += (Mínimo valor de habilidad entre todos los intimidados) + (2 * prófugos capturados)
+		// 61 + 30 + + (2*1)
+		assertEquals(Integer.valueOf(93), cazador.getExperiencia());
+	}
+	
+	@Test
+	public void queSeAgregueUnCazadorALaAgencia() {
+	Agencia agencia = new Agencia();
+	CazadorUrbano cazador = new CazadorUrbano(70);
+	assertTrue(agencia.agregarCazador(cazador));
+	}
+	
+	@Test
+	public void queSeAgreguen4CazadoresDeDistintoAmbito() {
+	Agencia agencia = new Agencia();
+	CazadorUrbano cazadorU = new CazadorUrbano(70);
+	CazadorRural cazadorR = new CazadorRural(60);
+	CazadorSigiloso cazadorS = new CazadorSigiloso(80);
+	CazadorUrbano cazadorU2 = new CazadorUrbano(65);
+	agencia.agregarCazador(cazadorU);
+	agencia.agregarCazador(cazadorR);
+	agencia.agregarCazador(cazadorS);
+	agencia.agregarCazador(cazadorU2);
+	
+	assertEquals(Integer.valueOf(4), agencia.cantidadDeCazadores());
+	}
+	
+	
+	@Test
+	public void queMuestreAljefeDeLaAgenciaLosProfugosAtrapados() {
+	Agencia agencia = new Agencia();
+	Zona zona = new Zona("Dodge City");
+	CazadorUrbano cazador = new CazadorUrbano(80);
+	CazadorSigiloso cazadorS = new CazadorSigiloso(80);
+	Profugo profugo1 = new Profugo(50, 60,false);
+	Profugo profugo2 = new Profugo(50, 45,true);
+	Profugo profugo3 = new Profugo(50, 40,true);
+	
+	agencia.agregarCazador(cazador);
+	agencia.agregarCazador(cazadorS);
+	
+	
+	zona.agregarProfugo(profugo1);
+	zona.agregarProfugo(profugo2);
+	zona.agregarProfugo(profugo3);
+	
+	cazador.capturarProfugos(zona);
+	cazadorS.capturarProfugos(zona);
+	System.out.println(agencia.profugosAtrapadosPorLosCazadores());
+	}
+	
+	@Test
+	public void queMuestreAljefeDeLaAgenciaElProfugoMasHabilCapturado() {
+	Agencia agencia = new Agencia();
+	Zona zona = new Zona("Dodge City");
+	CazadorUrbano cazador = new CazadorUrbano(80);
+	CazadorSigiloso cazadorS = new CazadorSigiloso(80);
+	Profugo profugo1 = new Profugo(50, 60,false);
+	Profugo profugo2 = new Profugo(50, 45,true);
+	Profugo profugo3 = new Profugo(50, 40,true);
+	
+	
+	agencia.agregarCazador(cazador);
+	agencia.agregarCazador(cazadorS);
+	
+	
+	zona.agregarProfugo(profugo1);
+	zona.agregarProfugo(profugo2);
+	zona.agregarProfugo(profugo3);
+	
+	cazador.capturarProfugos(zona);
+	cazadorS.capturarProfugos(zona);
+	System.out.println(agencia.devolverElProfugoMasHabilCapturado());
+	}
+	
+	@Test
+	public void queMuestreAljefeDeLaAgenciaElCazadorConMasProfugosAtrapados() {
+	Agencia agencia = new Agencia();
+	Zona zona = new Zona("Dodge City");
+	CazadorUrbano cazador = new CazadorUrbano(80);
+	CazadorSigiloso cazadorS = new CazadorSigiloso(80);
+	Profugo profugo1 = new Profugo(50, 60,false);
+	Profugo profugo2 = new Profugo(50, 45,true);
+	Profugo profugo3 = new Profugo(50, 40,true);
+	
+	
+	agencia.agregarCazador(cazador);
+	agencia.agregarCazador(cazadorS);
+	
+
+	zona.agregarProfugo(profugo1);
+	zona.agregarProfugo(profugo2);
+	zona.agregarProfugo(profugo3);
+	
+	cazador.capturarProfugos(zona);
+	cazadorS.capturarProfugos(zona);
+	System.out.println(agencia.devolverAlCazadorConMasProfugosAtrapados());
+	}
+	
+	
+	
+	
+	
+	
 	
 	
 	

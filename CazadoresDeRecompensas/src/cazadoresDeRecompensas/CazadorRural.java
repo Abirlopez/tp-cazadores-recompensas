@@ -24,7 +24,8 @@ public class CazadorRural extends Cazador {
 //			}
 		
 		}
-		if (this.CantidadDeProfugosAtrapados() > 1) {
+		zona.setProfugos(profugosNoEliminados);
+		if (this.CantidadDeProfugosAtrapados() >= 1) {
 			this.aumentaExperiencia(profugosNoEliminados);
 		}
 		return capturado;
@@ -38,6 +39,10 @@ public class CazadorRural extends Cazador {
 			profugo.setEsNervioso(true);
 		}
 		
+	}
+	@Override
+	public String toString() {
+		return "Cazador Rural [experiencia=" + experiencia + ", profugosAtrapados=" + this.CantidadDeProfugosAtrapados() + "]";
 	}
 
 }

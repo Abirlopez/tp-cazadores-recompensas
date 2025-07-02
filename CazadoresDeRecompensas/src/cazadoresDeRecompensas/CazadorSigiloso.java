@@ -21,7 +21,8 @@ public class CazadorSigiloso extends Cazador {
 				this.intimidar(zona.getProfugos().get(i));
 			}
 		}
-			if(this.CantidadDeProfugosAtrapados() > 1) {
+		zona.setProfugos(profugosNoEliminados);
+			if(this.CantidadDeProfugosAtrapados() >= 1) {
 				this.aumentaExperiencia(profugosNoEliminados);
 			}
 		
@@ -40,5 +41,9 @@ public class CazadorSigiloso extends Cazador {
 
 		}
 
+	}
+	@Override
+	public String toString() {
+		return "Cazador Sigiloso [experiencia=" + experiencia + ", profugosAtrapados=" + this.CantidadDeProfugosAtrapados() + "]";
 	}
 }

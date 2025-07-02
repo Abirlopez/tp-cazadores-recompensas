@@ -9,11 +9,14 @@ public class Profugo {
 		this.esNervioso=esNervioso;
 		this.habilidad=habilidad;
 		this.Inocencia=Inocencia;
+		
 	}
 
 	public Integer getInocencia() {
 		return Inocencia;
 	}
+	
+	
 
 	public Integer getHabilidad() {
 		return habilidad;
@@ -33,6 +36,11 @@ public class Profugo {
 
 	public void setEsNervioso(Boolean esNervioso) {
 		this.esNervioso = esNervioso;
+	}
+
+	
+	public String toString() {
+		return "Profugo [Inocencia=" + Inocencia + ", habilidad=" + habilidad + ", esNervioso=" + esNervioso + "]";
 	}
 	
 	
