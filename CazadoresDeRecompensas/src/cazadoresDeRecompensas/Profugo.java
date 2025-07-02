@@ -9,15 +9,12 @@ public class Profugo {
 		this.esNervioso=esNervioso;
 		this.habilidad=habilidad;
 		this.Inocencia=Inocencia;
-		
 	}
 
 	public Integer getInocencia() {
 		return Inocencia;
 	}
 	
-	
-
 	public Integer getHabilidad() {
 		return habilidad;
 	}

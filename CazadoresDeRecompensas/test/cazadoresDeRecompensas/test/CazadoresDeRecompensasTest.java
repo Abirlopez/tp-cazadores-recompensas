@@ -20,7 +20,6 @@ public class CazadoresDeRecompensasTest {
 		
 		assertEquals(true, zona.agregarProfugo(pacoElFlaco));
 	}
-	
 	@Test
 	public void queElCazadorPuedaCapturarAUnProfugo() {
 		Zona zona = new Zona("Dodge City");
