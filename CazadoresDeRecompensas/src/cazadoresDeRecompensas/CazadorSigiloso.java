@@ -44,6 +44,6 @@ public class CazadorSigiloso extends Cazador {
 	}
 	@Override
 	public String toString() {
-		return "Cazador Sigiloso [experiencia=" + experiencia + ", profugosAtrapados=" + this.CantidadDeProfugosAtrapados() + "]";
+		return "Cazador Sigiloso [experiencia= " + experiencia + ", profugosAtrapados= " + this.CantidadDeProfugosAtrapados() + "]";
 	}
 }

@@ -41,7 +41,7 @@ public class CazadorUrbano extends Cazador {
 	
 	@Override
 	public String toString() {
-		return "Cazador Urbano [experiencia=" + experiencia + ", profugosAtrapados=" + this.CantidadDeProfugosAtrapados() + "]";
+		return "Cazador Urbano [experiencia= " + experiencia + ", profugosAtrapados= " + this.CantidadDeProfugosAtrapados() + "]";
 	}
 
 }

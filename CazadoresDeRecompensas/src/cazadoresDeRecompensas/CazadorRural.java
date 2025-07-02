@@ -42,7 +42,8 @@ public class CazadorRural extends Cazador {
 	}
 	@Override
 	public String toString() {
-		return "Cazador Rural [experiencia=" + experiencia + ", profugosAtrapados=" + this.CantidadDeProfugosAtrapados() + "]";
+		return "Cazador Rural [experiencia= " + experiencia + ", profugosAtrapados= " + this.CantidadDeProfugosAtrapados() + "]";
+		
 	}
 
 }
