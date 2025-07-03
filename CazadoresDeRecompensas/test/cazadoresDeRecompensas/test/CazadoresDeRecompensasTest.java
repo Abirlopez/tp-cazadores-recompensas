@@ -7,6 +7,7 @@ import org.junit.Test;
 import cazadoresDeRecompensas.Agencia;
 import cazadoresDeRecompensas.CazadorRural;
 import cazadoresDeRecompensas.CazadorUrbano;
+import cazadoresDeRecompensas.LaHabilidadNoDebeSerMayorACienException;
 import cazadoresDeRecompensas.Profugo;
 import cazadoresDeRecompensas.Zona;
 import cazadoresDeRecompensas.CazadorSigiloso;
@@ -286,6 +287,50 @@ public class CazadoresDeRecompensasTest {
 	cazador.capturarProfugos(zona);
 	cazadorS.capturarProfugos(zona);
 	System.out.println(agencia.devolverAlCazadorConMasProfugosAtrapados());
+	}
+	
+	@Test
+	public void queSeEntreneDosProfugosEnArtesMariciales() throws Exception {
+	Profugo profugo1 = new Profugo(50, 60,false);
+	Profugo profugo2 = new Profugo(50, 45,true);
+	
+	profugo1.entrenarEnArtesMarciales();
+	profugo2.entrenarEnArtesMarciales();
+	assertEquals(Integer.valueOf(100), profugo1.getHabilidad());
+	assertEquals(Integer.valueOf(90), profugo2.getHabilidad());
+	
+	}
+	
+	/*@Test(expected = LaHabilidadNoDebeSerMayorACienException.class)
+	public void queSeEntreneUnProfugoEnArtesMaricialesYArrojeExepcion() throws LaHabilidadNoDebeSerMayorACienException {
+		Agencia agencia = new Agencia();
+		Zona zona = new Zona("Dodge City");
+		Profugo profugo1 = new Profugo(50, 150,false);
+		zona.agregarProfugo(profugo1);
+		try {
+		profugo1.entrenarEnArtesMarciales();}catch(Exception LaHabilidadNoDebeSerMayorACienException) {}
+		
+		}*/
+	
+	@Test
+	public void queSeEntreneUnProfugoEnEntrenamientoDeEliteYQueNpPuedaSerNervioso() {
+	Profugo profugo1 = new Profugo(50, 50,true);
+	
+	profugo1.entrenarEnEntrenamientoDeElite();
+	profugo1.setEsNervioso(true);
+	assertFalse(profugo1.getEsNervioso());
+	
+	}
+	
+	@Test
+	public void queSeEntreneUnProfugoEnProteccionLegalYSuInocenciaNoPuedaBajarDeCuarenta() {
+	Profugo profugo1 = new Profugo(20, 50,true);
+	Profugo profugo2 = new Profugo(50, 45,true);
+	
+	profugo1.entrenarEnProteccionLegal();
+	profugo1.setInocencia(10);
+	assertEquals(Integer.valueOf(40), profugo1.getInocencia());
+	
 	}
 	
 	
