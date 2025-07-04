@@ -7,7 +7,7 @@ import org.junit.Test;
 import cazadoresDeRecompensas.Agencia;
 import cazadoresDeRecompensas.CazadorRural;
 import cazadoresDeRecompensas.CazadorUrbano;
-import cazadoresDeRecompensas.LaHabilidadNoPuedeSerMayorA100NiNegativa;
+import cazadoresDeRecompensas.LaHabilidadNoDebeSerMayorACienException;
 import cazadoresDeRecompensas.NoHayCazadoresEnLaAgenciaException;
 import cazadoresDeRecompensas.Profugo;
 import cazadoresDeRecompensas.Zona;
@@ -318,8 +318,8 @@ public class CazadoresDeRecompensasTest {
 	
 	}
 	
-	@Test(expected = LaHabilidadNoPuedeSerMayorA100NiNegativa.class)
-	public void queSeEntreneUnProfugoEnArtesMaricialesYArrojeExepcion() throws LaHabilidadNoPuedeSerMayorA100NiNegativa {
+	@Test(expected = LaHabilidadNoDebeSerMayorACienException.class)
+	public void queSeEntreneUnProfugoEnArtesMaricialesYArrojeExepcion() throws LaHabilidadNoDebeSerMayorACienException {
 		Profugo profugo1 = new Profugo(50, 150,false);
 		profugo1.entrenarEnArtesMarciales();
 		
@@ -356,7 +356,7 @@ public class CazadoresDeRecompensasTest {
 	profugo1.entrenarEnEntrenamientoDeElite();
 	try {
 		profugo1.entrenarEnArtesMarciales();
-	} catch (LaHabilidadNoPuedeSerMayorA100NiNegativa e) {}
+	} catch (LaHabilidadNoDebeSerMayorACienException e) {}
 	assertEquals(Integer.valueOf(40), profugo1.getInocencia());
 	
 	

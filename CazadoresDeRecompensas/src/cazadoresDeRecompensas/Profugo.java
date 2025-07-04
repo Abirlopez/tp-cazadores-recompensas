@@ -56,11 +56,11 @@ public class Profugo {
 		return "Profugo [Inocencia=" + Inocencia + ", habilidad=" + habilidad + ", esNervioso=" + esNervioso + "]";
 	}
 
-	public void entrenarEnArtesMarciales() throws LaHabilidadNoPuedeSerMayorA100NiNegativa{
+	public void entrenarEnArtesMarciales() throws LaHabilidadNoDebeSerMayorACienException{
 		if(!this.artesMaricales) {
 			if(this.habilidad >= 100) {
 				throw new 
-				LaHabilidadNoPuedeSerMayorA100NiNegativa("La habilidad no puede ser mayor a 100");
+				LaHabilidadNoDebeSerMayorACienException("La habilidad no puede ser mayor a 100");
 			}else if(this.habilidad > 50) {
 				this.artesMaricales = true;
 				this.setHabilidad(100);;
