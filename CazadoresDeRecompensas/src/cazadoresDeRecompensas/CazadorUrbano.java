@@ -34,6 +34,9 @@ public class CazadorUrbano extends Cazador {
 		if (profugo.getInocencia() >= 2) {
 			profugo.setInocencia(inocenciaActual - 2);
 			profugo.setEsNervioso(false);
+		}else {
+			profugo.setInocencia(0);
+			profugo.setEsNervioso(false);
 		}
 
 	}

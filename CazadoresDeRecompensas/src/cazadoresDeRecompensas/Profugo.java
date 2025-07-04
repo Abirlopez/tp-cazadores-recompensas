@@ -40,6 +40,8 @@ public class Profugo {
 
 	public void setHabilidad(Integer habilidad) {
 		this.habilidad = habilidad;
+		
+		
 	}
 
 	public void setEsNervioso(Boolean esNervioso) {
@@ -54,17 +56,18 @@ public class Profugo {
 		return "Profugo [Inocencia=" + Inocencia + ", habilidad=" + habilidad + ", esNervioso=" + esNervioso + "]";
 	}
 
-	public void entrenarEnArtesMarciales() throws LaHabilidadNoDebeSerMayorACienException{
+	public void entrenarEnArtesMarciales() throws LaHabilidadNoPuedeSerMayorA100NiNegativa{
 		if(!this.artesMaricales) {
 			if(this.habilidad >= 100) {
-				throw new LaHabilidadNoDebeSerMayorACienException("La habilidad no puede ser mayor a 100");
+				throw new 
+				LaHabilidadNoPuedeSerMayorA100NiNegativa("La habilidad no puede ser mayor a 100");
 			}else if(this.habilidad > 50) {
 				this.artesMaricales = true;
-				this.habilidad = 100;
+				this.setHabilidad(100);;
 				
 			}else {
 				this.artesMaricales = true;
-				this.habilidad = this.habilidad*2;
+				this.setHabilidad(this.habilidad*2);
 				
 			}
 		}
@@ -83,7 +86,7 @@ public class Profugo {
 	public void entrenarEnProteccionLegal() {
 		if(!this.proteccionLegal) {
 			if(this.Inocencia < 40) {
-				this.Inocencia = 40;
+				this.setInocencia(40);
 				this.proteccionLegal = true;
 			}else {
 				this.proteccionLegal = true;

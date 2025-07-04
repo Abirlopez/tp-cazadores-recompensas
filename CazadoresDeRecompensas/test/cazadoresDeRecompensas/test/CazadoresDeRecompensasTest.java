@@ -7,7 +7,8 @@ import org.junit.Test;
 import cazadoresDeRecompensas.Agencia;
 import cazadoresDeRecompensas.CazadorRural;
 import cazadoresDeRecompensas.CazadorUrbano;
-import cazadoresDeRecompensas.LaHabilidadNoDebeSerMayorACienException;
+import cazadoresDeRecompensas.LaHabilidadNoPuedeSerMayorA100NiNegativa;
+import cazadoresDeRecompensas.NoHayCazadoresEnLaAgenciaException;
 import cazadoresDeRecompensas.Profugo;
 import cazadoresDeRecompensas.Zona;
 import cazadoresDeRecompensas.CazadorSigiloso;
@@ -94,6 +95,16 @@ public class CazadoresDeRecompensasTest {
 		CazadorSigiloso cazador = new CazadorSigiloso(80);
 		zona.agregarProfugo(pacoElFlaco);
 		assertFalse(cazador.capturarProfugos(zona));
+	}
+	
+	@Test
+	public void queUnCazadorSigilosoIntimideAUnProfugoConMenosDeCincoDeHabilidad() {
+		Zona zona = new Zona("Dodge City");
+		Profugo pacoElFlaco = new Profugo(50, 2,false);
+		CazadorSigiloso cazador = new CazadorSigiloso(1);
+		zona.agregarProfugo(pacoElFlaco);
+		assertFalse(cazador.capturarProfugos(zona));
+		assertEquals(Integer.valueOf(0),pacoElFlaco.getHabilidad());
 	}
 	
 	@Test
@@ -238,7 +249,9 @@ public class CazadoresDeRecompensasTest {
 	
 	cazador.capturarProfugos(zona);
 	cazadorS.capturarProfugos(zona);
-	System.out.println(agencia.profugosAtrapadosPorLosCazadores());
+	try {
+		System.out.println(agencia.profugosAtrapadosPorLosCazadores());
+	} catch (NoHayCazadoresEnLaAgenciaException e) {}
 	}
 	
 	@Test
@@ -262,7 +275,9 @@ public class CazadoresDeRecompensasTest {
 	
 	cazador.capturarProfugos(zona);
 	cazadorS.capturarProfugos(zona);
-	System.out.println(agencia.devolverElProfugoMasHabilCapturado());
+	try {
+		System.out.println(agencia.devolverElProfugoMasHabilCapturado());
+	} catch (NoHayCazadoresEnLaAgenciaException e) {}
 	}
 	
 	@Test
@@ -286,7 +301,9 @@ public class CazadoresDeRecompensasTest {
 	
 	cazador.capturarProfugos(zona);
 	cazadorS.capturarProfugos(zona);
-	System.out.println(agencia.devolverAlCazadorConMasProfugosAtrapados());
+	try {
+		System.out.println(agencia.devolverAlCazadorConMasProfugosAtrapados());
+	} catch (NoHayCazadoresEnLaAgenciaException e) {}
 	}
 	
 	@Test
@@ -301,16 +318,12 @@ public class CazadoresDeRecompensasTest {
 	
 	}
 	
-	/*@Test(expected = LaHabilidadNoDebeSerMayorACienException.class)
-	public void queSeEntreneUnProfugoEnArtesMaricialesYArrojeExepcion() throws LaHabilidadNoDebeSerMayorACienException {
-		Agencia agencia = new Agencia();
-		Zona zona = new Zona("Dodge City");
+	@Test(expected = LaHabilidadNoPuedeSerMayorA100NiNegativa.class)
+	public void queSeEntreneUnProfugoEnArtesMaricialesYArrojeExepcion() throws LaHabilidadNoPuedeSerMayorA100NiNegativa {
 		Profugo profugo1 = new Profugo(50, 150,false);
-		zona.agregarProfugo(profugo1);
-		try {
-		profugo1.entrenarEnArtesMarciales();}catch(Exception LaHabilidadNoDebeSerMayorACienException) {}
+		profugo1.entrenarEnArtesMarciales();
 		
-		}*/
+		}
 	
 	@Test
 	public void queSeEntreneUnProfugoEnEntrenamientoDeEliteYQueNpPuedaSerNervioso() {
@@ -328,10 +341,45 @@ public class CazadoresDeRecompensasTest {
 	Profugo profugo2 = new Profugo(50, 45,true);
 	
 	profugo1.entrenarEnProteccionLegal();
+	profugo2.entrenarEnProteccionLegal();
 	profugo1.setInocencia(10);
 	assertEquals(Integer.valueOf(40), profugo1.getInocencia());
+	assertEquals(Integer.valueOf(50), profugo2.getInocencia());
 	
 	}
+	
+	@Test
+	public void queSeEntreneAUnProfugoEnTodo() {
+	Profugo profugo1 = new Profugo(20, 50,true);
+	
+	profugo1.entrenarEnProteccionLegal();
+	profugo1.entrenarEnEntrenamientoDeElite();
+	try {
+		profugo1.entrenarEnArtesMarciales();
+	} catch (LaHabilidadNoPuedeSerMayorA100NiNegativa e) {}
+	assertEquals(Integer.valueOf(40), profugo1.getInocencia());
+	
+	
+	}
+	@Test(expected = NoHayCazadoresEnLaAgenciaException.class)
+	public void queArrojeExcepcionSiSeIntentadevolverAlCazadorConMasProfugosAtrapadosSinAgregarNingunCazador() throws NoHayCazadoresEnLaAgenciaException {
+	Agencia agencia = new Agencia();
+	
+	agencia.devolverAlCazadorConMasProfugosAtrapados();
+	}
+	
+	@Test(expected = NoHayCazadoresEnLaAgenciaException.class)
+	public void queArrojeExcepcionSiSeIntentaDevolverAlProfugoMásHabilCapturadoSinAgregarNingunCazador() throws NoHayCazadoresEnLaAgenciaException {
+	Agencia agencia = new Agencia();
+	agencia.devolverElProfugoMasHabilCapturado();
+	}
+	
+	@Test(expected = NoHayCazadoresEnLaAgenciaException.class)
+	public void queArrojeExcepcionSiIntentaDevolverLosProfugosCapturadosSinAgregarNingunCazador() throws NoHayCazadoresEnLaAgenciaException {
+	Agencia agencia = new Agencia();
+	agencia.profugosAtrapadosPorLosCazadores();
+	}
+	
 	
 	
 	

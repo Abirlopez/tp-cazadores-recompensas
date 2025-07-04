@@ -35,11 +35,16 @@ public class CazadorSigiloso extends Cazador {
 		Integer habilidadActual = profugo.getHabilidad();
 		if (profugo.getInocencia() >= 2) {
 			profugo.setInocencia(inocenciaActual - 2);
-			if (profugo.getHabilidad() >= 5) {
-				profugo.setHabilidad(habilidadActual - 5);
-			}
-
+		}else {
+			profugo.setInocencia(0);;
 		}
+		if (profugo.getHabilidad() >= 5) {
+			profugo.setHabilidad(habilidadActual - 5);
+			
+		}else {
+			profugo.setHabilidad(0);
+		}
+
 
 	}
 	@Override

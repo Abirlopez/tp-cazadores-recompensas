@@ -18,17 +18,20 @@ public class Agencia {
 		return this.cazadores.size();
 	}
 	
-	public String profugosAtrapadosPorLosCazadores() {
+	public String profugosAtrapadosPorLosCazadores() throws NoHayCazadoresEnLaAgenciaException {
 		String reporte = "";
 		for (Cazador cazador : cazadores) {
 			for (Profugo profugo : cazador.getProfugosAtrapados()) {
 				reporte += profugo.toString() + "\n";
 			}
 		}
+		if(cazadores.isEmpty()) {
+			throw new NoHayCazadoresEnLaAgenciaException("No se han agregado cazadores a la agencia");
+		}
 		return reporte;
 	}
 	
-	public Profugo devolverElProfugoMasHabilCapturado() {
+	public Profugo devolverElProfugoMasHabilCapturado() throws NoHayCazadoresEnLaAgenciaException {
 		Profugo profugoMasHabil = null;
 		for (Cazador cazador : cazadores) {
 			for (Profugo profugo : cazador.getProfugosAtrapados()) {
@@ -37,18 +40,24 @@ public class Agencia {
 				}
 			}
 		}
-		
+		if(cazadores.isEmpty()) {
+			throw new NoHayCazadoresEnLaAgenciaException("No se han agregado cazadores a la agencia");
+		}
 		return profugoMasHabil;
 	
 	}
 
-	public Cazador devolverAlCazadorConMasProfugosAtrapados() {
+	public Cazador devolverAlCazadorConMasProfugosAtrapados() throws NoHayCazadoresEnLaAgenciaException {
 	Cazador cazadorConMasProfugosAtrapados = null;
 	for (Cazador cazador : cazadores) {
 		if(cazadorConMasProfugosAtrapados == null || cazador.CantidadDeProfugosAtrapados() > cazadorConMasProfugosAtrapados.CantidadDeProfugosAtrapados()) {
 			cazadorConMasProfugosAtrapados = cazador;
 		}
 		}
+	
+	if(cazadores.isEmpty()) {
+		throw new NoHayCazadoresEnLaAgenciaException("No se han agregado cazadores a la agencia");
+	}
 	
 	
 	return cazadorConMasProfugosAtrapados;
